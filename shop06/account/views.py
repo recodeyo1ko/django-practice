@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from . import forms
-from .models import AccountUser
+from .models import User
 
 # Create your views here.
 
@@ -15,7 +15,7 @@ def login(request):
     #           username = login_form.cleaned_data['username']
     #           password = login_form.cleaned_data['password']
     #           try:
-    #               user = AccountUser.objects.get(user_id=user_id)
+    #               user = User.objects.get(user_id=user_id)
     #           except:
     #               message = "ユーザーが存在しません。"
     #               return render(request, 'account/login.html', locals())
