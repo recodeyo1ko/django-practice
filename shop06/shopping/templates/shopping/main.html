@@ -7,5 +7,34 @@
   </head>
   <body>
     <h1>商品の検索を行います。</h1>
+<!-- formタグを使って、商品の検索を行います。 -->
+    <form action="/shopping/searchResult" method="post">
+      <label for="category">カテゴリ:</label>
+      <select name="category" id="category">
+        <option value="0">すべて</option>
+        <option value="1">食品</option>
+        <option value="2">書籍</option>
+        <option value="3">家電</option>
+      </select>
+      <label for="keyword">キーワード</label>
+      <input type="text" name="keyword" id="keyword" />
+      <input type="submit" value="検索" />
+
+      <br>
+      <a href="#">
+        ショッピングカートを見る
+      </a>
+      <br>
+      <a href="#">
+        購入履歴
+      </a>
+      <br>
+      <a href="#">
+        ログイン
+      </a>
+      <br>
+      <a href="#">
+        管理者ページ
+      </a>
   </body>
 </html>
