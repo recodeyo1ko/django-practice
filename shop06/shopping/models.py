@@ -9,6 +9,9 @@ class Category(models.Model):
   category_id = models.IntegerField(primary_key=True)
   name = models.CharField(max_length=256)
 
+  def __str__(self):
+        return self.name
+
 class SearchItem(models.Model):
     pass
 
@@ -21,8 +24,11 @@ class Item(models.Model):
   color = models.CharField(max_length=16)
   price = models.IntegerField()
   stock = models.IntegerField()
-  recomended = models.IntegerField()
+  recommended = models.IntegerField()
   category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+  def __str__(self):
+        return self.name
 
 
 class ItemsInCart(models.Model):
