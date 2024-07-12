@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Category
 from .models import Item
 from django.db.models import Q
@@ -30,9 +30,12 @@ def search(request):
         'categories': categories
     })
 
+def item_detail(request, item_id):
+  item = get_object_or_404(Item, item_id=item_id)
+  return render(request, 'shopping/itemDetail.html', {'item': item})
+
+
 def cart(request):
     return render(request, 'shopping/cart.html')
 
-def itemDetail(request):
-    return render(request, 'shopping/itemDetail.html')
 

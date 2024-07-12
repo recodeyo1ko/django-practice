@@ -7,5 +7,37 @@
   </head>
   <body>
     <h1>商品の詳細表示</h1>
+    <table border="1">
+      <tr>
+        <th>商品名</th>
+        <td>{{ item.name }}</td>
+      </tr>
+      <tr>
+        <th>商品の色</th>
+        <td>{{ item.color }}</td>
+      </tr>
+      <tr>
+        <th>メーカー名</th>
+        <td>{{ item.manufacturer }}</td>
+      </tr>
+      <tr>
+        <th>価格</th>
+        <td>{{ item.price }}</td>
+      </tr>
+      <tr>
+        <th>在庫数</th>
+        <td>{{ item.stock }}</td>
+      </tr>
+    </table>
+
+    <form action="/shopping/cart" method="post">
+      <input type="hidden" name="item_id" value="{{ item.id }}" />
+      <br />
+      数量<input type="number" name="quantity" value="1" />
+      <br />
+      <input type="submit" value="ショッピングカートに入れる" />
+    </form>
+
+    <a href="/shopping/">商品検索</a>へ
   </body>
 </html>

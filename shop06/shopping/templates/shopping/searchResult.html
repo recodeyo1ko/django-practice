@@ -10,7 +10,7 @@
     <p>
       カテゴリ: {% for category in categories %}
       <br />
-      {% if category.id == search_category %}
+      {% if category.category_id == search_category %}
       <br />
       {{ category.name }}{% endif %}{% endfor %}
     </p>
@@ -25,17 +25,19 @@
       {% for item in items %}
       <tr>
         <td>
-          <a href="#">{{ item.name }}</a>
+          <a href="/shopping/item/{{ item.item_id }}">{{ item.name }}</a>
         </td>
         <td>{{ item.color }}</td>
         <td>{{ item.manufacturer }}</td>
         <td>{{ item.price }}</td>
-        {% empty %}
-        <li>該当する商品が見つかりませんでした。</li>
-        {% endfor %}
       </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">該当する商品が見つかりませんでした。</td>
+      </tr>
+      {% endfor %}
     </table>
 
-    <a href="/">戻る</a>
+    <a href="/shopping">戻る</a>
   </body>
 </html>
