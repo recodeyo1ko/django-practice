@@ -10,7 +10,12 @@ from django.utils import timezone
 
 def index(request):
     categories = Category.objects.all()
-    return render(request, 'shopping/main.html', {'categories': categories})
+    is_login = request.session.get('is_login', None)
+    context = {
+        'categories': categories,
+        'is_login': is_login
+    }
+    return render(request, 'shopping/main.html', context)
 
 def search(request):
     search_category = request.GET.get('search_category')

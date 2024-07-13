@@ -1,36 +1,36 @@
 from django.shortcuts import render, redirect
-from . import forms
+from django.views import View
+from .forms import UserLoginForm
 from .models import User
 
-# Create your views here.
+class UserLoginView(View):
+    form_class = UserLoginForm
+    template_name = 'account/login.html'
 
-def login(request):
-    # if request.session.get('is_login', None):
-    #     return redirect('/')
-    # if request.method == "POST":
-    #       login_form = forms.UserForm(request.POST)
-    #       message = "入力した内容を再度確認してください。"
-    #       if login_form.is_valid():
-    #           user_id = login_form.cleaned_data['id']
-    #           username = login_form.cleaned_data['username']
-    #           password = login_form.cleaned_data['password']
-    #           try:
-    #               user = User.objects.get(user_id=user_id)
-    #           except:
-    #               message = "ユーザーが存在しません。"
-    #               return render(request, 'account/login.html', locals())
+    def get(self, request):
+        if request.session.get('is_login', None):
+            return redirect('shopping:index')
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            user_id = form.cleaned_data['user_id']
+            password = form.cleaned_data['password']
+            if User.objects.filter(user_id=user_id, password=password).exists():
+                request.session['is_login'] = True
+                request.session['user_id'] = user_id
+                return redirect('shopping:index')
+            else:
+                return render(request, self.template_name, {'form': form, 'error': 'ユーザーIDまたはパスワードが間違っています'})
+        else:
+            print(form.errors)
+        return render(request, self.template_name, {'form': form, 'error': 'フォームにエラーがあります'})
 
-    #           if user.password == password:
-    #               request.session['is_login'] = True
-    #               request.session['user_id'] = user.user_id
-    #               return redirect('/')
-    #           else:
-    #               message = "パスワードが正しくありません。"
-    #               return render(request, 'account/login.html', locals())
-    # else:
-    #     return render(request, 'account/login.html', locals())
-    # login_form = forms.UserForm()
-    return render(request, 'account/login.html')
+def logout(request):
+    request.session.flush()
+    return redirect('account:login')
 
 def registerUser(request):
     return render(request, 'account/registerUser.html')
@@ -60,9 +60,3 @@ def withdrawComfirm(request):
     return render(request, 'account/withdrawComfirm.html')
 
 
-
-def logout(request):
-    if not request.session.get('is_login', None):
-        return redirect('/')
-    request.session.flush()
-    return redirect('/')

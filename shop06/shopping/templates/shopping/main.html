@@ -25,7 +25,11 @@
     <br />
     <a href="#"> 購入履歴 </a>
     <br />
-    <a href="#"> ログイン </a>
+    {% if is_login %}
+    <a href="{% url 'account:logout' %}"> ログアウト </a>
+    {% else %}
+    <a href="{% url 'account:login' %}"> ログイン </a>
+    {% endif %}
     <br />
     <a href="#"> 管理者ページ </a>
   </body>
