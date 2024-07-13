@@ -1,7 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Category
 from .models import Item
+from .models import ItemsInCart
 from django.db.models import Q
+from django.utils import timezone
+
 
 # Create your views here.
 
@@ -35,7 +38,18 @@ def item_detail(request, item_id):
   return render(request, 'shopping/itemDetail.html', {'item': item})
 
 
+def add_to_cart(request):
+    item_id = request.POST.get('item_id')
+    amount = request.POST.get('amount')
+    items_in_cart = ItemsInCart()
+    items_in_cart.item = Item.objects.get(item_id=item_id)
+    items_in_cart.amount = amount
+    items_in_cart.booked_date = timezone.now()
+    # ユーザ機能が未実装のため、未実装
+    # items_in_cart.user_id = request.session.get('user_id')
+    items_in_cart.save()
+    return redirect('shopping:cart')
+
 def cart(request):
-    return render(request, 'shopping/cart.html')
-
-
+    cart_items = ItemsInCart.objects.all()
+    return render(request, 'shopping/cart.html', {'cart_items': cart_items})

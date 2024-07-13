@@ -30,10 +30,11 @@
       </tr>
     </table>
 
-    <form action="/shopping/cart" method="post">
-      <input type="hidden" name="item_id" value="{{ item.id }}" />
+    <form action="{% url 'shopping:add_to_cart' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="item_id" value="{{ item.item_id }}" />
       <br />
-      数量<input type="number" name="quantity" value="1" />
+      数量<input type="number" name="amount" value="1" />
       <br />
       <input type="submit" value="ショッピングカートに入れる" />
     </form>

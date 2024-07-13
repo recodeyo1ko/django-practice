@@ -7,5 +7,26 @@
   </head>
   <body>
     <h1>ショッピングカート内の商品一覧</h1>
+
+    <table border="1">
+      <tr>
+        <th>商品名</th>
+        <th>商品の色</th>
+        <th>メーカー名</th>
+        <th>価格</th>
+      </tr>
+      {% for cart_item in cart_items %}
+      <tr>
+        <td>{{ cart_item.item.name }}</td>
+        <td>{{ cart_item.item.color }}</td>
+        <td>{{ cart_item.item.manufacturer }}</td>
+        <td>{{ cart_item.item.price }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">カートは空です。</td>
+      </tr>
+      {% endfor %}
+    </table>
   </body>
 </html>
