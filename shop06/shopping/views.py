@@ -44,15 +44,23 @@ def item_detail(request, item_id):
 
 
 def add_to_cart(request):
+    if not request.session.get('is_login'):
+        return redirect('account:login')
     item_id = request.POST.get('item_id')
     amount = request.POST.get('amount')
-    items_in_cart = ItemsInCart()
-    items_in_cart.item = Item.objects.get(item_id=item_id)
-    items_in_cart.amount = amount
-    items_in_cart.booked_date = timezone.now()
-    # ユーザ機能が未実装のため、未実装
-    # items_in_cart.user_id = request.session.get('user_id')
-    items_in_cart.save()
+
+    if ItemsInCart.objects.filter(item_id=item_id).exists():
+        items_in_cart = ItemsInCart.objects.get(item_id=item_id, user_id=request.session.get('user_id'))
+        items_in_cart.amount += int(amount)
+        items_in_cart.booked_date = timezone.now()
+        items_in_cart.save()
+    else:
+        items_in_cart = ItemsInCart()
+        items_in_cart.item = Item.objects.get(item_id=item_id)
+        items_in_cart.amount = amount
+        items_in_cart.booked_date = timezone.now()
+        items_in_cart.user_id = request.session.get('user_id')
+        items_in_cart.save()
     return redirect('shopping:cart')
 
 def cart(request):

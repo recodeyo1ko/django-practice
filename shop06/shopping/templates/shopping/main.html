@@ -21,7 +21,11 @@
     </form>
 
     <br />
-    <a href="#"> ショッピングカートを見る </a>
+    {% if is_login %}
+    <a href="{% url 'shopping:cart' %}"> ショッピングカートを見る </a>
+    {% else %}
+    <a href="{% url 'account:login' %}"> ショッピングカートを見る </a>
+    {% endif %}
     <br />
     <a href="#"> 購入履歴 </a>
     <br />
