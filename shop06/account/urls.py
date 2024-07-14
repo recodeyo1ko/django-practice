@@ -8,9 +8,8 @@ urlpatterns = [
     path('login/', views.UserLoginView.as_view(), name='login'),
     path('logout/', views.logout, name='logout'),
 
-    path('registerUser/', views.registerUser, name='registerUser'),
+    path('registerUser/', views.RegisterUserView.as_view(), name='registerUser'),
     path('registerUserCommit/', views.registerUserCommit, name='registerUserCommit'),
-    path('registerUserComfirm/', views.registerUserComfirm, name='registerUserComfirm'),
     path('updateUser/', views.updateUser, name='updateUser'),
     path('updateUserCommit/', views.updateUserCommit, name='updateUserCommit'),
     path('updateUserComfirm/', views.updateUserComfirm, name='updateUserComfirm'),

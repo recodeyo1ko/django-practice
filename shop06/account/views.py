@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import UserLoginForm
+from .forms import UserRegisterForm
 from .models import User
 
 class UserLoginView(View):
@@ -32,14 +33,44 @@ def logout(request):
     request.session.flush()
     return redirect('account:login')
 
-def registerUser(request):
-    return render(request, 'account/registerUser.html')
+class RegisterUserView(View):
+    form_class = UserRegisterForm
+    template_name = 'account/registerUser.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            if request.method == 'POST':
+                context = {
+                    'user_id': request.POST.get('user_id'),
+                    'name': request.POST.get('name'),
+                    'password': request.POST.get('password'),
+                    'address': request.POST.get('address'),
+                }
+            return render(request, 'account/registerUserConfirm.html', {'form': form, 'context': context})
+        return render(request, self.template_name, {'form': form})
 
 def registerUserCommit(request):
-    return render(request, 'account/registerUserCommit.html')
+    if request.method == 'POST':
+        user = User()
+        user.user_id = request.POST.get('user_id')
+        user.name = request.POST.get('name')
+        user.password = request.POST.get('password')
+        user.address = request.POST.get('address')
+        user.save()
+        request.session['is_login'] = True
+        request.session['user_id'] =  user.user_id
+        return render(request, 'account/registerUserCommit.html', {'user': user})
+    else:
+        form = UserRegisterForm()
+        return render(request, 'account/registerUserConfirm.html', {'form': form})
 
-def registerUserComfirm(request):
-    return render(request, 'account/registerUserComfirm.html')
+# def registerUserComfirm(request):
+#     return render(request, 'account/registerUserComfirm.html')
 
 def updateUser(request):
     return render(request, 'account/updateUser.html')
