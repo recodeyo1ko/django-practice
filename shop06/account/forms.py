@@ -50,3 +50,34 @@ class UserRegisterForm(forms.Form):
         if address == '':
             raise forms.ValidationError('住所を入力してください')
         return address
+    
+
+class UserUpdateForm(forms.Form):
+    user_id = forms.CharField(label='会員ID', max_length=100)
+    name = forms.CharField(label='お名前', max_length=100)
+    password = forms.CharField(label='パスワード', widget=forms.PasswordInput)
+    address = forms.CharField(label='ご住所', max_length=255)
+
+    def clean_user_id(self):
+        user_id = self.cleaned_data['user_id']
+        if user_id == '':
+            raise forms.ValidationError('ユーザーIDを入力してください')
+        return user_id
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if name == '':
+            raise forms.ValidationError('ユーザー名を入力してください')
+        return name
+    
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        if password == '':
+            raise forms.ValidationError('パスワードを入力してください')
+        return password
+    
+    def clean_address(self):
+        address = self.cleaned_data['address']
+        if address == '':
+            raise forms.ValidationError('住所を入力してください')
+        return address

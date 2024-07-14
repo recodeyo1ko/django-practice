@@ -10,7 +10,7 @@
     <table>
       <tr>
         <td>会員ID</td>
-        <td>会員ID</td>
+        <td>{{ user.user_id }}</td>
       </tr>
       <tr>
         <td>パスワード</td>
@@ -18,14 +18,14 @@
       </tr>
       <tr>
         <td>お名前</td>
-        <td>お名前</td>
+        <td>{{ user.name }}</td>
       </tr>
       <tr>
         <td>ご住所</td>
-        <td>ご住所</td>
+        <td>{{ user.address }}</td>
       </tr>
     </table>
-    <a href="/account/updateUser">会員情報の変更</a>
-    <a href="/shopping/main">商品検索</a>へ
+    <a href="/account/updateUser/">会員情報の変更</a>
+    <a href="/shopping/">商品検索</a>へ
   </body>
 </html>

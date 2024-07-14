@@ -10,10 +10,11 @@ urlpatterns = [
 
     path('registerUser/', views.RegisterUserView.as_view(), name='registerUser'),
     path('registerUserCommit/', views.registerUserCommit, name='registerUserCommit'),
-    path('updateUser/', views.updateUser, name='updateUser'),
+
+    path('userInfo/', views.userInfo, name='userInfo'),
+    path('updateUser/', views.UpdateUserView.as_view(), name='updateUser'),
     path('updateUserCommit/', views.updateUserCommit, name='updateUserCommit'),
-    path('updateUserComfirm/', views.updateUserComfirm, name='updateUserComfirm'),
-    path('userinfo/', views.userinfo, name='userinfo'),
+
     path('withdrawCommit/', views.withdrawCommit, name='withdrawCommit'),
     path('withdrawComfirm/', views.withdrawComfirm, name='withdrawComfirm'),
 ]

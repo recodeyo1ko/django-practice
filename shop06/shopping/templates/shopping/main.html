@@ -30,6 +30,8 @@
     <a href="#"> 購入履歴 </a>
     <br />
     {% if is_login %}
+    <a href="{% url 'account:userInfo' %}"> 会員情報の確認 </a><br />
+    <a href="{% url 'account:updateUser' %}"> 会員情報の変更 </a><br />
     <a href="{% url 'account:logout' %}"> ログアウト </a>
     {% else %}
     <a href="{% url 'account:login' %}"> ログイン </a>
