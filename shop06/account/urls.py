@@ -15,6 +15,7 @@ urlpatterns = [
     path('updateUser/', views.UpdateUserView.as_view(), name='updateUser'),
     path('updateUserCommit/', views.updateUserCommit, name='updateUserCommit'),
 
+    path('withdrawConfirm/', views.withdrawConfirm, name='withdrawConfirm'),
     path('withdrawCommit/', views.withdrawCommit, name='withdrawCommit'),
-    path('withdrawComfirm/', views.withdrawComfirm, name='withdrawComfirm'),
+
 ]

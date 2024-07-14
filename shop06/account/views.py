@@ -121,10 +121,15 @@ def updateUserCommit(request):
         form = UserUpdateForm()
         return render(request, 'account/updateUserConfirm.html', {'form': form})
 
-def withdrawCommit(request):
-    return render(request, 'account/withdrawCommit.html')
+def withdrawConfirm(request):
+    user = User.objects.get(user_id=request.session.get('user_id'))
+    return render(request, 'account/withdrawConfirm.html', {'user': user})
 
-def withdrawComfirm(request):
-    return render(request, 'account/withdrawComfirm.html')
+def withdrawCommit(request):
+    user = User.objects.get(user_id=request.session.get('user_id'))
+    user_name = user.name
+    user.delete()
+    request.session.flush()
+    return render(request, 'account/withdrawCommit.html', {'user_name': user_name})
 
 
